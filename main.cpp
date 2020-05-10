@@ -1,4 +1,5 @@
 #include <cmath>
+#include <limits>
 #include <vector>
 #include <algorithm>
 #include <functional>
@@ -9,7 +10,9 @@
 #define STB_IMAGE_WRITE_IMPLEMENTATION
 #include "stb_image_write.h"
 
-#define M_PI 3.14159265358979323846264338327950288
+#ifndef M_PI
+  #define M_PI 3.14159265358979323846264338327950288
+#endif
 
 using namespace std;
 
@@ -67,7 +70,7 @@ float distanceToLine(const Vec2f& p,const Vec2f& a,const Vec2f& b)
 
 float maxBallRadius(Vec2f x,vector<Seg>& segs)
 {
-  float r = FLT_MAX;
+  float r = std::numeric_limits<float>::max();
   for(int i=0;i<segs.size();i++) { r = std::min(r,distanceToLine(x,segs[i].a,segs[i].b)); }
   return r;
 }
